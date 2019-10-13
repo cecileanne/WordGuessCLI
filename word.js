@@ -19,14 +19,14 @@ function Word(string) {
   };
 }
 
-let test = new Word("test");
-console.log(test);
-console.log(test.wordPrint());
-test.checkLetter("x");
-console.log(test.wordPrint());
-test.checkLetter("e");
-console.log(test.wordPrint());
-test.checkLetter("t");
-console.log(test.wordPrint());
+// let test = new Word("test");
+// console.log(test);
+// console.log(test.wordPrint());
+// test.checkLetter("x");
+// console.log(test.wordPrint());
+// test.checkLetter("e");
+// console.log(test.wordPrint());
+// test.checkLetter("t");
+// console.log(test.wordPrint());
 
 module.exports = Word;

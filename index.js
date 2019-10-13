@@ -1,21 +1,32 @@
+const Letter = require("./letter");
 const Word = require("./word");
+const inquirer = require("inquirer");
+const fs = require("fs");
 
-const possibleWords [
-    "Calzone",
-    "Linguini",
-    "Tiramisu",
-    "Cannoli",
-    "Spaghetti",
-    "Foccacia"
-]
 // The file containing the logic for the course of the game, which depends on `Word.js` and:
-// Randomly selects a word and uses the `Word` constructor to store it
 
-function selectWord(possibleWords) {
+// Set variables
+let italianFoodWords = [];
+let currentWord = [];
+let userGuesses = [];
+let userGuessCount = 10;
 
-}
+fs.readFile("foods.txt", "utf8", function(err, data) {
+  if (err) {
+    return console.log("Cannot read file: " + err);
+  }
+  italianFoodWords = data.split(", ");
+  //   console.log(italianFoodWords);
 
-// Set number of guesses
-let userGuess = 10;
+  //   function playGame(italianFoodWords) {
 
-// Prompts the user for each guess and keeps track of the user's remaining guesses
+  // Randomly selects a word and uses the `Word` constructor to store it
+  const randomFood =
+    italianFoodWords[Math.floor(Math.random() * italianFoodWords.length)];
+  // console.log(randomFood);
+
+  let currentWord = new Word(`${randomFood}`);
+
+  // Prompts the user for each guess and keeps track of the user's remaining guesses
+  //   } // closes playGame
+}); // closes the read file

@@ -7,8 +7,6 @@ const fs = require("fs");
 
 // Set variables
 let italianFoodWords = [];
-let currentWord = [];
-let userGuesses = [];
 let userGuessCount = 10;
 
 fs.readFile("foods.txt", "utf8", function(err, data) {
@@ -18,8 +16,6 @@ fs.readFile("foods.txt", "utf8", function(err, data) {
   italianFoodWords = data.split(", ");
   //   console.log(italianFoodWords);
 
-  //   function playGame(italianFoodWords) {
-
   // Randomly selects a word and uses the `Word` constructor to store it
   const randomFood =
     italianFoodWords[Math.floor(Math.random() * italianFoodWords.length)];
@@ -27,20 +23,36 @@ fs.readFile("foods.txt", "utf8", function(err, data) {
   let currentWord = new Word(`${randomFood}`);
   console.log(currentWord.wordPrint());
   // Prompts the user for each guess and keeps track of the user's remaining guesses
-  inquirer
-    .prompt([
-      {
-        type: "input",
-        name: "userLetterGuess",
-        message:
-          "Mangia! Guess a letter to tell me what I will cook for you tonight (and then hit return)"
-      }
-    ]) // closes prompt
-    .then(response => {
-      //   console.log(`you guessed ${response.userLetterGuess}`);
-      currentWord.checkLetter(`${response.userLetterGuess}`);
-      console.log(currentWord.wordPrint());
-      console.log(`Guesses remaining: ${userGuessCount--}`);
-    }); // closes then
-  //   } // closes playGame
+  if (userGuessCount > 0) {
+    //   ^ TO DO need to make this repeat so wrap it in a function
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          name: "userLetterGuess",
+          message:
+            "Mangia! Guess a letter to tell me what I should cook for you tonight (and then hit return)"
+        }
+      ]) // closes prompt
+      .then(response => {
+        //   console.log(`you guessed ${response.userLetterGuess}`);
+        currentWord.checkLetter(`${response.userLetterGuess}`);
+        console.log(currentWord.wordPrint());
+        if ((currentWord.letter.guessed = true)) {
+          console.log(
+            `Dinner's almost ready - Guesses remaining: ${userGuessCount}; Go again!`
+          );
+        }
+        if ((currentWord.letter.guessed = false)) {
+          userGuessCount--;
+          console.log(`Sorry! Guesses remaining: ${userGuessCount}; Go again!`);
+        }
+        // TO DO if all letters are showing then
+        // console.log(`Food is ready! I hope you like ${randomFood}`)
+      }); // closes then
+  } else {
+    // if no more guesses available
+    // if not all letters shown:
+    console.log(`Sorry, it looks like you're going hungry tonight`);
+  }
 }); // closes the read file
